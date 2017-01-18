@@ -32,8 +32,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends SampleRobot {
   AHRS ahrs;
   Joystick stick;
-
+  DecimalFormat df;
+    
   public Robot() {
+      df = new DecimalFormat("###.##");
       stick = new Joystick(0);
       try {
           /* Communicate w/navX-MXP via the MXP SPI Bus.                                     */
@@ -52,6 +54,7 @@ public class Robot extends SampleRobot {
       Timer.delay(2.0);		//    for 2 seconds
   }
 
+
   /**
    * Display navX-MXP Sensor Data on Smart Dashboard
    */
@@ -66,32 +69,32 @@ public class Robot extends SampleRobot {
           }
 
           /* Display 6-axis Processed Angle Data                                      */
-          SmartDashboard.putBoolean(  "IMU_Connected",        ahrs.isConnected());
-          SmartDashboard.putBoolean(  "IMU_IsCalibrating",    ahrs.isCalibrating());
-          SmartDashboard.putNumber(   "IMU_Yaw",              ahrs.getYaw());
-          SmartDashboard.putNumber(   "IMU_Pitch",            ahrs.getPitch());
-          SmartDashboard.putNumber(   "IMU_Roll",             ahrs.getRoll());
+          SmartDashboard.putBoolean(  "IMU_Connected",        df.format(ahrs.isConnected()));
+          SmartDashboard.putBoolean(  "IMU_IsCalibrating",    df.format(ahrs.isCalibrating()));
+          SmartDashboard.putNumber(   "IMU_Yaw",              df.format(ahrs.getYaw()));
+          SmartDashboard.putNumber(   "IMU_Pitch",            df.format(ahrs.getPitch()));
+          SmartDashboard.putNumber(   "IMU_Roll",             df.format(ahrs.getRoll()));
           
           /* Display tilt-corrected, Magnetometer-based heading (requires             */
           /* magnetometer calibration to be useful)                                   */
           
-          SmartDashboard.putNumber(   "IMU_CompassHeading",   ahrs.getCompassHeading());
+          SmartDashboard.putNumber(   "IMU_CompassHeading",   df.format(ahrs.getCompassHeading()));
           
           /* Display 9-axis Heading (requires magnetometer calibration to be useful)  */
-          SmartDashboard.putNumber(   "IMU_FusedHeading",     ahrs.getFusedHeading());
+          SmartDashboard.putNumber(   "IMU_FusedHeading",     df.format(ahrs.getFusedHeading()));
 
           /* These functions are compatible w/the WPI Gyro Class, providing a simple  */
           /* path for upgrading from the Kit-of-Parts gyro to the navx-MXP            */
           
-          SmartDashboard.putNumber(   "IMU_TotalYaw",         ahrs.getAngle());
-          SmartDashboard.putNumber(   "IMU_YawRateDPS",       ahrs.getRate());
+          SmartDashboard.putNumber(   "IMU_TotalYaw",         df.format(ahrs.getAngle()));
+          SmartDashboard.putNumber(   "IMU_YawRateDPS",       df.format(ahrs.getRate()));
 
           /* Display Processed Acceleration Data (Linear Acceleration, Motion Detect) */
           
-          SmartDashboard.putNumber(   "IMU_Accel_X",          ahrs.getWorldLinearAccelX());
-          SmartDashboard.putNumber(   "IMU_Accel_Y",          ahrs.getWorldLinearAccelY());
-          SmartDashboard.putBoolean(  "IMU_IsMoving",         ahrs.isMoving());
-          SmartDashboard.putBoolean(  "IMU_IsRotating",       ahrs.isRotating());
+          SmartDashboard.putNumber(   "IMU_Accel_X",          df.format(ahrs.getWorldLinearAccelX()));
+          SmartDashboard.putNumber(   "IMU_Accel_Y",          df.format(ahrs.getWorldLinearAccelY()));
+          SmartDashboard.putBoolean(  "IMU_IsMoving",         df.format(ahrs.isMoving()));
+          SmartDashboard.putBoolean(  "IMU_IsRotating",       df.format(ahrs.isRotating()));
 
           /* Display estimates of velocity/displacement.  Note that these values are  */
           /* not expected to be accurate enough for estimating robot position on a    */
@@ -99,26 +102,26 @@ public class Robot extends SampleRobot {
           /* of these errors due to single (velocity) integration and especially      */
           /* double (displacement) integration.                                       */
           
-          SmartDashboard.putNumber(   "Velocity_X",           ahrs.getVelocityX());
-          SmartDashboard.putNumber(   "Velocity_Y",           ahrs.getVelocityY());
-          SmartDashboard.putNumber(   "Displacement_X",       ahrs.getDisplacementX());
-          SmartDashboard.putNumber(   "Displacement_Y",       ahrs.getDisplacementY());
+          SmartDashboard.putNumber(   "Velocity_X",           df.format(ahrs.getVelocityX()));
+          SmartDashboard.putNumber(   "Velocity_Y",           df.format(ahrs.getVelocityY()));
+          SmartDashboard.putNumber(   "Displacement_X",       df.format(ahrs.getDisplacementX()));
+          SmartDashboard.putNumber(   "Displacement_Y",       df.format(ahrs.getDisplacementY()));
           
           /* Display Raw Gyro/Accelerometer/Magnetometer Values                       */
           /* NOTE:  These values are not normally necessary, but are made available   */
           /* for advanced users.  Before using this data, please consider whether     */
           /* the processed data (see above) will suit your needs.                     */
           
-          SmartDashboard.putNumber(   "RawGyro_X",            ahrs.getRawGyroX());
-          SmartDashboard.putNumber(   "RawGyro_Y",            ahrs.getRawGyroY());
-          SmartDashboard.putNumber(   "RawGyro_Z",            ahrs.getRawGyroZ());
-          SmartDashboard.putNumber(   "RawAccel_X",           ahrs.getRawAccelX());
-          SmartDashboard.putNumber(   "RawAccel_Y",           ahrs.getRawAccelY());
-          SmartDashboard.putNumber(   "RawAccel_Z",           ahrs.getRawAccelZ());
-          SmartDashboard.putNumber(   "RawMag_X",             ahrs.getRawMagX());
-          SmartDashboard.putNumber(   "RawMag_Y",             ahrs.getRawMagY());
-          SmartDashboard.putNumber(   "RawMag_Z",             ahrs.getRawMagZ());
-          SmartDashboard.putNumber(   "IMU_Temp_C",           ahrs.getTempC());
+          SmartDashboard.putNumber(   "RawGyro_X",            df.format(ahrs.getRawGyroX()));
+          SmartDashboard.putNumber(   "RawGyro_Y",            df.format(ahrs.getRawGyroY()));
+          SmartDashboard.putNumber(   "RawGyro_Z",            df.format(ahrs.getRawGyroZ()));
+          SmartDashboard.putNumber(   "RawAccel_X",           df.format(ahrs.getRawAccelX()));
+          SmartDashboard.putNumber(   "RawAccel_Y",           df.format(ahrs.getRawAccelY()));
+          SmartDashboard.putNumber(   "RawAccel_Z",           df.format(ahrs.getRawAccelZ()));
+          SmartDashboard.putNumber(   "RawMag_X",             df.format(ahrs.getRawMagX()));
+          SmartDashboard.putNumber(   "RawMag_Y",             df.format(ahrs.getRawMagY()));
+          SmartDashboard.putNumber(   "RawMag_Z",             df.format(ahrs.getRawMagZ()));
+          SmartDashboard.putNumber(   "IMU_Temp_C",           df.format(ahrs.getTempC()));
           
           /* Omnimount Yaw Axis Information                                           */
           /* For more info, see http://navx-mxp.kauailabs.com/installation/omnimount  */
@@ -127,21 +130,21 @@ public class Robot extends SampleRobot {
           SmartDashboard.putNumber(   "YawAxis",              yaw_axis.board_axis.getValue() );
           
           /* Sensor Board Information                                                 */
-          SmartDashboard.putString(   "FirmwareVersion",      ahrs.getFirmwareVersion());
+          SmartDashboard.putString(   "FirmwareVersion",      df.format(ahrs.getFirmwareVersion()));
           
           /* Quaternion Data                                                          */
           /* Quaternions are fascinating, and are the most compact representation of  */
           /* orientation data.  All of the Yaw, Pitch and Roll Values can be derived  */
           /* from the Quaternions.  If interested in motion processing, knowledge of  */
           /* Quaternions is highly recommended.                                       */
-          SmartDashboard.putNumber(   "QuaternionW",          ahrs.getQuaternionW());
-          SmartDashboard.putNumber(   "QuaternionX",          ahrs.getQuaternionX());
-          SmartDashboard.putNumber(   "QuaternionY",          ahrs.getQuaternionY());
-          SmartDashboard.putNumber(   "QuaternionZ",          ahrs.getQuaternionZ());
+          SmartDashboard.putNumber(   "QuaternionW",          df.format(ahrs.getQuaternionW()));
+          SmartDashboard.putNumber(   "QuaternionX",          df.format(ahrs.getQuaternionX()));
+          SmartDashboard.putNumber(   "QuaternionY",          df.format(ahrs.getQuaternionY()));
+          SmartDashboard.putNumber(   "QuaternionZ",          df.format(ahrs.getQuaternionZ()));
           
           /* Connectivity Debugging Support                                           */
-          SmartDashboard.putNumber(   "IMU_Byte_Count",       ahrs.getByteCount());
-          SmartDashboard.putNumber(   "IMU_Update_Count",     ahrs.getUpdateCount());
+          SmartDashboard.putNumber(   "IMU_Byte_Count",       df.format(ahrs.getByteCount()));
+          SmartDashboard.putNumber(   "IMU_Update_Count",     df.format(ahrs.getUpdateCount()));
       }
   }
 
