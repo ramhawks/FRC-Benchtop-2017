@@ -122,12 +122,12 @@ public class Robot extends SampleRobot {
           
           /* Omnimount Yaw Axis Information                                           */
           /* For more info, see http://navx-mxp.kauailabs.com/installation/omnimount  */
-          AHRS.BoardYawAxis yaw_axis = Math.round(100.0 * ahrs.getBoardYawAxis()) / 100.0;
+          AHRS.BoardYawAxis yaw_axis = ahrs.getBoardYawAxis();
           SmartDashboard.putString(   "YawAxisDirection",     yaw_axis.up ? "Up" : "Down" );
           SmartDashboard.putNumber(   "YawAxis",              yaw_axis.board_axis.getValue() );
           
           /* Sensor Board Information                                                 */
-          SmartDashboard.putString(   "FirmwareVersion",      Math.round(100.0 * ahrs.getFirmwareVersion()) / 100.0);
+          SmartDashboard.putString(   "FirmwareVersion",      ahrs.getFirmwareVersion());
           
           /* Quaternion Data                                                          */
           /* Quaternions are fascinating, and are the most compact representation of  */
